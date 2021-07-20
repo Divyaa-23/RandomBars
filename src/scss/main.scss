@@ -1,0 +1,48 @@
+$bar-count: 30;
+@import "../scss/mixin.scss";
+@import "../scss/function.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(233, 233, 159);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat($bar-count, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  height: 100vh;
+}
+
+@for $i from 1 through $bar-count {
+  .bars:nth-child(#{$i}) {
+    height: random(50) + 10 + vh;
+    // min height:11vh ,max height:60vh
+
+    // even
+    @if (($i%2) == 0) {
+      background: linear-gradient(
+        45deg,
+        lighten(rebeccapurple, 35%),
+        darken(rebeccapurple, 10%)
+      );
+      border-radius: 0 0 (random(45) + 30 + px) (random(45) + 30 + px);
+      // border-radius : top left corner , top right corner , bottom right corner, bottom left corner
+      transform-origin: 0 0;
+    } @else {
+      background: linear-gradient(
+        45deg,
+        lighten(hotpink, 30%),
+        darken(hotpink, 10%)
+      );
+      border-radius: (random(45) + 30 + px) (random(45) + 30 + px) 0 0;
+      transform-origin: 0 100%;
+    }
+    @include bar-animation((random(5) + 1 + s));
+  }
+}
+
+.bars:nth-child(odd) {
+  align-self: end;
+}
